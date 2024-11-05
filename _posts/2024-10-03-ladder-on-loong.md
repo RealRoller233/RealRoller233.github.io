@@ -19,6 +19,19 @@ cd clash-meta.git
 makepkg -si
 `
 然后下载clash-verge的yaml和db文件,放到`~/.config/clash/`下,然后启动clash-meta即可
-`bash
+```bash
 sudo clash-meta -d ~/.config/clash/ -f ~/.config/clash/config.yaml
-`
+```
+
+- 补充
+
+后来改用mihomo,和tailscale在重启之后不能兼容(两者均使用tun模式)
+
+- 解决方法
+
+```bash
+systemctl stop mihomo tailscaled
+systemctl start tailscaled
+systemctl start mihomo
+```
+只需保证正确启动顺序即可(~~其实试了很多办法没有用~~)
