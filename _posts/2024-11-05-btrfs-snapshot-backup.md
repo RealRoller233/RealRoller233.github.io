@@ -67,3 +67,4 @@ sudo btrfs subvolume snapshot /mnt/@subvol /mnt/@subvol
 可以理解subvol为一种特殊文件夹,可以通过btrfs send和receive来传输
 ```
 
+注:记得修改fstab
