@@ -3,9 +3,9 @@
 name: Deploy Jekyll site to Pages
 
 on:
-  # 仅在推送到 "main" 分支时触发工作流
+  # 仅在推送到 "master" 分支时触发工作流
   push:
-    branches: ["main"] # 【关键修改】您的仓库默认分支是 "main"，而不是 "master"
+    branches: ["master"]
 
   # 允许您从 Actions 标签页手动运行此工作流
   workflow_dispatch:
