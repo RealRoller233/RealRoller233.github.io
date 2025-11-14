@@ -1,43 +1,59 @@
+# 文件路径: .github/workflows/jekyll.yml
+
 name: Deploy Jekyll site to Pages
 
 on:
+  # 仅在推送到 "main" 分支时触发工作流
   push:
-    branches: ["master"] # 改成仓库实际默认分支
+    branches: ["main"] # 【关键修改】您的仓库默认分支是 "main"，而不是 "master"
+
+  # 允许您从 Actions 标签页手动运行此工作流
   workflow_dispatch:
 
+# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# 只允许同时进行一次部署，但不会取消正在进行的部署
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
+  # 构建任务
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - name: Checkout code # 步骤1：拉取代码
+        uses: actions/checkout@v4
+        
+      - name: Setup Ruby # 步骤2：设置 Ruby 环境
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1.4'
-          bundler-cache: true
+          ruby-version: '3.1' # 您原来的 '3.1.4' 也可以，使用 '3.1' 更具通用性
+          bundler-cache: true # 自动运行 'bundle install' 并缓存依赖项
           cache-version: 1
-      - uses: actions/configure-pages@v5
-        id: pages
-      - run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          
+      - name: Build with Jekyll # 步骤3：使用 Jekyll 构建网站
+        # 对于用户主页 (username.github.io)，baseurl 必须设置为空字符串 ""
+        run: bundle exec jekyll build --baseurl ""
         env:
           JEKYLL_ENV: production
-          GITHUB_PAGES: true
-      - uses: actions/upload-pages-artifact@v3
+          
+      - name: Upload artifact # 步骤4：上传构建好的网站文件
+        # 此操作会自动打包 Jekyll 默认的 '_site' 目录
+        uses: actions/upload-pages-artifact@v3
 
+  # 部署任务
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: build # 依赖于 'build' 任务成功完成
     steps:
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages # 步骤5：部署到 GitHub Pages
         id: deployment
+        uses: actions/deploy-pages@v4
