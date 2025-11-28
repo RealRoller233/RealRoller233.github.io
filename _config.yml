@@ -1,9 +1,9 @@
 # Site settings
 title: Real_Roller Blog
-header-img: img/sky.jpg
+header-img: img/frame_cuda_11645.png
 email: 931591847@qq.com
 description: "这里是 @RealRoller233 的个人博客,会记录一些折腾记录之类的"
-keyword: "Linux, ArchLinux, hack, physics, math, genshin"
+keyword: "Linux, ArchLinux, physics, math, nichijou"
 url: "" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
@@ -71,8 +71,8 @@ netease_comment: false
 #ga_domain: huangxuan.me
 
 # Sidebar settings
-sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "rolling"
+sidebar: false # whether or not using Sidebar.
+sidebar-about-description: ""
 #sidebar-avatar: https://github.com/Huxpro.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Featured Tags
